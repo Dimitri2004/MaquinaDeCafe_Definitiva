@@ -1,56 +1,72 @@
 @file:Suppress("DUPLICATE_BRANCH_CONDITION_IN_WHEN")
 
 /**
+ * State machine
  *
- * Controlador de la máquina de café que gestiona los estados y las operaciones.
- * @property currentState El estado actual de la máquina de café.
- * @property cantidadLeche La cantidad de leche disponible en ml.
- * @property cantidadAzucar La cantidad de azúcar disponible en gramos.
- * @author Dima
- * @version 1.0
+ * @constructor Create empty State machine
  */
 object StateMachine {
-    public var currentState: CoffeeMachineState = CoffeeMachineState.Idle
+   public var currentState: CoffeeMachineState = CoffeeMachineState.Idle
 
-
+    /**
+     * Set state
+     *
+     * @param newState
+     */
     fun setState(newState: CoffeeMachineState) {
-        if (esCorrectoPedido(currentState, newState)) {
+        if (isCorrectoPedido(currentState, newState)) {
             currentState = newState
-
-            updateState()
+            updateState(CoffeeMachineState.Idle)
 
         } else {
             println("No es posible en $currentState para $newState")
         }
     }
 
-    private fun esCorrectoPedido(from: CoffeeMachineState, to: CoffeeMachineState): Boolean {
+    /**
+     * Is correcto pedido
+     *
+     * @param from
+     * @param to
+     * @return
+     */
+
+    private fun isCorrectoPedido(from: CoffeeMachineState, to: CoffeeMachineState): Boolean {
         return when (from) {
             CoffeeMachineState.Idle -> to == CoffeeMachineState.MakingCoffee
             CoffeeMachineState.MakingCoffee -> to == CoffeeMachineState.ServingCoffee
             CoffeeMachineState.ServingCoffee -> to == CoffeeMachineState.SirviendoconLeche
-            CoffeeMachineState.ServingCoffee -> to == CoffeeMachineState.SirviendoconAzucar
+            CoffeeMachineState.SirviendoconLeche -> to == CoffeeMachineState.SirviendoconAzucar
             CoffeeMachineState.SirviendoconAzucar -> to == CoffeeMachineState.Idle
+            is CoffeeMachineState.Error -> to == CoffeeMachineState.Idle
             else -> false
         }
 
     }
 
+    /**
+     * Get state
+     *
+     * @return
+     */
+
     fun getState(): CoffeeMachineState {
         return currentState
     }
 
-    fun updateState() {
+    /**
+     * Update state
+     *
+     * @param newState
+     */
+    fun updateState(newState: CoffeeMachineState) {
         println("[StateMachine] Estado actual: $currentState")
         currentState.onEnter(this)
     }
 
 }
 
-        /**
-         * Limpia la máquina y resetea su estado a Idle.
-         * @param
-         */
+
         /*
         fun clean() {
             println("Limpiando la máquina...")
