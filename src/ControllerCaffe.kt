@@ -1,9 +1,18 @@
 @file:Suppress("DUPLICATE_BRANCH_CONDITION_IN_WHEN")
 
+/**
+ * State machine
+ *
+ * @constructor Create empty State machine
+ */
 object StateMachine {
    public var currentState: CoffeeMachineState = CoffeeMachineState.Idle
 
-
+    /**
+     * Set state
+     *
+     * @param newState
+     */
     fun setState(newState: CoffeeMachineState) {
         if (isCorrectoPedido(currentState, newState)) {
             currentState = newState
@@ -13,6 +22,14 @@ object StateMachine {
             println("No es posible en $currentState para $newState")
         }
     }
+
+    /**
+     * Is correcto pedido
+     *
+     * @param from
+     * @param to
+     * @return
+     */
 
     private fun isCorrectoPedido(from: CoffeeMachineState, to: CoffeeMachineState): Boolean {
         return when (from) {
@@ -27,10 +44,21 @@ object StateMachine {
 
     }
 
+    /**
+     * Get state
+     *
+     * @return
+     */
+
     fun getState(): CoffeeMachineState {
         return currentState
     }
 
+    /**
+     * Update state
+     *
+     * @param newState
+     */
     fun updateState(newState: CoffeeMachineState) {
         println("[StateMachine] Estado actual: $currentState")
         currentState.onEnter(this)
