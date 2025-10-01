@@ -1,12 +1,13 @@
 ```mermaid
 
 stateDiagram-v2
-    [*] --> Idle
-    Idle --> MakingCoffee: Pedido seleccionado
-    MakingCoffee --> ServingCoffee: Pedido sirviendo
-    ServingCoffee --> SirviendoconLeche: Pedido con leche
-    SirviendoconLeche --> SirviendoconAzucar: Pedido con azucar
+   MáquinaDeCafé --> Idle
+    Idle --> MakingCoffee
+    MakingCoffee --> ServingCoffee: 
+    ServingCoffee --> SirviendoconLeche
+    SirviendoconLeche --> SirviendoconAzucar
     SirviendoconAzucar --> Idle: Reiniciando pedido
-    Error --> Idle: Pedido fallido
-
+    Idle --> Error: Pedido fallido
+    Error --> Idle: Reiniciando
+    
 ```
