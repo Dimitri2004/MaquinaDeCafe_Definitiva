@@ -31,7 +31,7 @@ object StateMachine {
      * @return
      */
     private fun isCorrectoPedido(from: CoffeeMachineState, to: CoffeeMachineState): Boolean {
-        return when (from) {
+        return when (from) {//Funcion que realice las transiciones entre estados
             CoffeeMachineState.Idle -> to == CoffeeMachineState.MakingCoffee
             CoffeeMachineState.MakingCoffee -> to == CoffeeMachineState.ServingCoffee
             CoffeeMachineState.ServingCoffee -> to == CoffeeMachineState.SirviendoconLeche
@@ -50,7 +50,7 @@ object StateMachine {
      */
 
     fun getState(): CoffeeMachineState {
-        return currentState
+        return currentState // Devuelve el estado actual
     }
 
     /**
