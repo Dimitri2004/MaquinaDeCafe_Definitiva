@@ -30,7 +30,6 @@ object StateMachine {
      * @param to
      * @return
      */
-
     private fun isCorrectoPedido(from: CoffeeMachineState, to: CoffeeMachineState): Boolean {
         return when (from) {
             CoffeeMachineState.Idle -> to == CoffeeMachineState.MakingCoffee
